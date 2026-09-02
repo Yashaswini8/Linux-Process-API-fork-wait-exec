@@ -2,7 +2,8 @@
 Ex02-Linux Process API-fork(), wait(), exec()
 # Ex02-OS-Linux-Process API - fork(), wait(), exec()
 Operating systems Lab exercise
-
+## NAME:YASHASWINI S
+## REG NO:212224220123
 
 # AIM:
 To write C Program that uses Linux Process API - fork(), wait(), exec()
@@ -25,6 +26,37 @@ Test the C Program for the desired output.
 
 ## C Program to create new process using Linux API system calls fork() and getpid() , getppid() and to print process ID and parent Process ID using Linux API system calls
 
+```
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+
+int main()
+{
+    pid_t pid;
+
+    pid = fork();
+
+    if (pid < 0)
+    {
+        printf("Fork failed\n");
+    }
+    else if (pid == 0)
+    {
+        printf("Child Process\n");
+        printf("Child Process ID: %d\n", getpid());
+        printf("Parent Process ID: %d\n", getppid());
+    }
+    else
+    {
+        printf("Parent Process\n");
+        printf("Parent Process ID: %d\n", getpid());
+        printf("Child Process ID: %d\n", pid);
+    }
+
+    return 0;
+}
+```
 
 
 
@@ -39,6 +71,7 @@ Test the C Program for the desired output.
 
 ##OUTPUT
 
+<img width="800" height="600" alt="exp 2 pic 1" src="https://github.com/user-attachments/assets/2b780f50-1d9c-4718-9cd0-049a7e146562" />
 
 
 
@@ -49,7 +82,43 @@ Test the C Program for the desired output.
 ## C Program to execute Linux system commands using Linux API system calls exec() , exit() , wait() family
 
 
+```
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <stdlib.h>
 
+int main()
+{
+    pid_t pid;
+
+    pid = fork();
+
+    if (pid < 0)
+    {
+        printf("Fork failed\n");
+        exit(1);
+    }
+    else if (pid == 0)
+    {
+        printf("Child Process\n");
+        printf("Executing Linux command using exec()\n");
+
+        execlp("ls", "ls", "-l", NULL);
+
+        printf("exec failed\n");
+        exit(1);
+    }
+    else
+    {
+        wait(NULL);
+        printf("Parent Process\n");
+        printf("Child process completed\n");
+    }
+
+    return 0;
+}
+```
 
 
 
@@ -77,8 +146,7 @@ Test the C Program for the desired output.
 
 
 
-
-
+<img width="800" height="600" alt="exp 2 pic 2" src="https://github.com/user-attachments/assets/ea89f499-032f-4f78-92fb-0c108a870adb" />
 
 
 
